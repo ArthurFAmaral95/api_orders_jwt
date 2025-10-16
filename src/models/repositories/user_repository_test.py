@@ -1,5 +1,16 @@
 from src.models.repositories.user_repository import UserRepository
 from src.models.settings.db_connection_handler import db_connection_handler
+from unittest.mock import Mock
+
+class MockCursor:
+  def __init__(self):
+    self.execute = Mock()
+    self.fetchone = Mock()
+
+class MockConnection:
+  def __init__(self):
+    self.cursor = Mock(return_value=MockCursor())
+    self.commit = Mock()
 
 def test_registry_user():
   db_connection_handler.connect()
@@ -11,3 +22,20 @@ def test_registry_user():
 
   #repo.registry_user(username=username, password=password)
   
+def test_unit_registry_user():
+  mock_connection = MockConnection()
+  repo = UserRepository(mock_connection)
+
+  username = 'unit test'
+  password = 'abcd'
+
+  repo.registry_user(username=username, password=password)
+
+  cursor = mock_connection.cursor.return_value
+
+  assert 'INSERT INTO users' in cursor.execute.call_args[0][0]
+  assert '(username, password)' in cursor.execute.call_args[0][0]
+  assert 'VALUES' in cursor.execute.call_args[0][0]
+  assert cursor.execute.call_args[0][1] == (username, password)
+
+  mock_connection.commit.assert_called_once()
