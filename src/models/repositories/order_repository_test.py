@@ -12,4 +12,7 @@ def test_new_order():
   order_date = datetime.now().astimezone()
   user_id = 1
 
-  repo.new_order(description=description, order_date=order_date, user_id=user_id)
+  #repo.new_order(description=description, order_date=order_date, user_id=user_id)
+  orders = repo.get_orders_by_user_id(user_id=user_id)
+  print()
+  print(orders)

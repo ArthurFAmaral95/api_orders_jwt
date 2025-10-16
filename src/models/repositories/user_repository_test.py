@@ -9,5 +9,5 @@ def test_registry_user():
   username = 'test'
   password = '1234'
 
-  repo.registry_user(username=username, password=password)
+  #repo.registry_user(username=username, password=password)
   

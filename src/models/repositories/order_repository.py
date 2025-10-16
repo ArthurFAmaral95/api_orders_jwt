@@ -16,3 +16,15 @@ class OrderRepository:
     )
     self.__conn.commit()
     
+  def get_orders_by_user_id(self, user_id: int) -> tuple:
+    cursor = self.__conn.cursor()
+    cursor.execute(
+      '''
+      SELECT id, description, order_date
+      FROM orders
+      WHERE user_id = ?
+      ''', (user_id,)
+    )
+    orders = cursor.fetchall()
+    return orders
+  
