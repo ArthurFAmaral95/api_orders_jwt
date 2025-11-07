@@ -18,7 +18,7 @@ class OrderRepository(OrderRepositoryInterface):
     )
     self.__conn.commit()
     
-  def get_orders_by_user_id(self, user_id: int) -> tuple:
+  def get_orders_by_user_id(self, user_id: int) -> list:
     cursor = self.__conn.cursor()
     cursor.execute(
       '''
