@@ -1,6 +1,7 @@
 from src.models.interface.order_repository import OrderRepositoryInterface
+from src.controllers.interfaces.order_getter import OrderGetterInterface
 
-class OrderGetter:
+class OrderGetter(OrderGetterInterface):
   def __init__(self, order_repository: OrderRepositoryInterface):
     self.__order_repository = order_repository
 
