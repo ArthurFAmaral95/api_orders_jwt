@@ -3,6 +3,7 @@ from src.controllers.new_order import NewOrderInterface
 from src.view.http_types.http_request import HttpRequest
 from src.view.http_types.http_response import HttpResponse
 from src.view.interfaces.view_interface import ViewInterface
+from src.errors.types.bad_request_error import HttpBadRequestError
 
 class NewOrderView(ViewInterface):
   def __init__(self, controller: NewOrderInterface):
@@ -34,4 +35,4 @@ class NewOrderView(ViewInterface):
       or not user_id
       or not isinstance(description, str)
       or (int(user_id) != int(header_user_id))
-    ): raise Exception('Invalid input')
+    ): raise HttpBadRequestError('Invalid input')

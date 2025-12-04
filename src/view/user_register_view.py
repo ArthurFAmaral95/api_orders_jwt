@@ -2,6 +2,7 @@ from src.controllers.interfaces.user_register import UserRegisterInterface
 from src.view.http_types.http_request import HttpRequest
 from src.view.http_types.http_response import HttpResponse
 from src.view.interfaces.view_interface import ViewInterface
+from src.errors.types.bad_request_error import HttpBadRequestError
 
 class UserRegisterView(ViewInterface):
   def __init__(self, controller: UserRegisterInterface) -> None:
@@ -21,4 +22,4 @@ class UserRegisterView(ViewInterface):
       or not password
       or not isinstance(username, str)
       or not isinstance(password, str)
-    ): raise Exception('Invalid Input')
+    ): raise HttpBadRequestError('Invalid Input')
